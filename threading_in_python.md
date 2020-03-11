@@ -26,7 +26,7 @@ if __name__ == '__main__':
     print('Main thread ending')
 ```
 
-## Multi-Threading
+## Multi-Threading<a name="multi-threading"/>
 
 ```python
 # Example of a multi-threaded application
