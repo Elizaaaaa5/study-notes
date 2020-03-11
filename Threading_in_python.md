@@ -215,6 +215,8 @@ if __name__ == '__main__':
     print(lock)
 ```
 
+- [RLock](https://docs.python.org/3/library/threading.html#rlock-objects)
+
 ## Deadlock
 - Occurs when a thread tries to acquire a lock that is already locked
 
