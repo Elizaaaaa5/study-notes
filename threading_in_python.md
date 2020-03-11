@@ -3,14 +3,14 @@
 ##### link to lecturer's repo: https://github.com/eightlimbed/oreilly
 
 ## Table of Contents
-1. [Single Thread](#single_thread)
+1. [Single Thread](#single-thread)
 2. [Multi-threads](#multi-threads)
-3. [Daemon Threads](#daemon_threads)
-4. [Joining Threads](#joining_threads)
-5. [Race Conditions](#race_conditions)
+3. [Daemon Threads](#daemon-threads)
+4. [Joining Threads](#joining-threads)
+5. [Race Conditions](#race-conditions)
 6. [Locks](#locks)
 7. [Deadlock](#deadlock)
-8. [Additional Documents](#additional_documents)
+8. [Additional Documents](#additional-documents)
 
 ## Single Thread
 
