@@ -15,6 +15,9 @@
     11. [PICK ONE WORD PER CONCEPT](#one-word-per-concept)
     12. [DON'T PUN](#don't-pun)
     13. [USE SOLUTION DOMAIN NAMES](#solution-domain)
+    14. [USE PROBLEM DOMAIN NAMES](#problem-domain)
+    15. [ADD MEANINGFUL CONTEXT](#meaningful-context)
+    16. [DON’T ADD GRATUITOUS CONTEXT](#gratuitous-context)
 
 
 ## Meaningful Names
@@ -140,24 +143,91 @@
     - `Complex fulcrumPoint = Complex.FromRealNumber(23.0);` is generally better than `Complex fulcrumPoint = new Complex(23.0);`
 10. DON’T BE CUTE<a name="don't-be-cute"/>  
     - Cuteness in code often appears in the form of colloquialisms or slang. For example, don’t use the name `whack()` to mean `kill()`. Don’t tell little culture-dependent jokes like `eatMyShorts()` to mean `abort()`.
-11. PICK ONE WORD PER CONCEPT<a name="on-word-per-concept/>
+11. PICK ONE WORD PER CONCEPT<a name="on-word-per-concept"/>
     - Pick one word for one abstract concept and stick with it. For instance, it’s confusing to have `fetch`, `retrieve`, and `get` as equivalent methods of different classes. 
     - Likewise, it’s confusing to have a `controller` and a `manager` and a `driver` in the same code base. What is the essential difference between a `DeviceManager` and a `Protocol-Controller`? Why are both not `controllers` or both not `managers`? Are they both `Drivers` really? The name leads you to expect two objects that have very different type as well as having different classes.
 12. DON’T PUN<a name="don't-pun"/>  
     - Avoid using the same word for two purposes. Using the same term for two different ideas is essentially a pun.
     - e.g., one might decide to use the word add for “consistency” when he or she is not in fact adding in the same sense. Let’s say we have many classes where add will create a new value by adding or concatenating two existing values. Now let’s say we are writing a new class that has a method that puts its single parameter into a collection. Should we call this method `add`? It might seem consistent because we have so many other add methods, but in this case, the semantics are different, so we should use a name like `insert` or `append` instead. To call the new method add would be a pun.
+    
 13. USE SOLUTION DOMAIN NAMES<a name="solution-domain"/>
     - The name `AccountVisitor` means a great deal to a programmer who is familiar with the `VISITOR` pattern. What programmer would not know what a `JobQueue` was? There are lots of very technical things that programmers have to do. Choosing **technical names** for those things is usually the most appropriate course.
 
-14. USE PROBLEM DOMAIN NAMES<a name="problem-domain/>
+14. USE PROBLEM DOMAIN NAMES<a name="problem-domain"/>
     - When there is no “programmer-eese” for what you’re doing, use the name from the problem domain. At least the programmer who maintains your code can ask a domain expert what it means.
     - Separating solution and problem domain concepts is part of the job of a good programmer and designer. The code that has more to do with problem domain concepts should have names drawn from the problem domain.
 15. ADD MEANINGFUL CONTEXT<a name="meaningful-context"/>
-
-
-
-
-
-
-
+    - Imagine that you have variables named `firstName`, `lastName`, `street`, `houseNumber`, `city`, `state`, and `zipcode`. Taken together it’s pretty clear that they form an address. But what if you just saw the state variable being used alone in a method? Would you automatically infer that it was part of an address?
+    - You can add context by using prefixes: `addrFirstName`, `addrLastName`, `addrState`, and so on. At least readers will understand that these variables are part of a larger structure. Of course, a better solution is to create a class named Address. Then, even the compiler knows that the variables belong to a bigger concept.
+    - Variables with unclear context
+        ```java
+        private void printGuessStatistics(char candidate, int count) {
+            String number;
+            String verb;
+            String pluralModifier;
+            if (count == 0) {
+                number = ”no”;
+                verb = ”are”;
+                pluralModifier = ”s”;
+            } else if (count == 1) {
+                number = ”1”;
+                verb = ”is”;
+                pluralModifier = ””;
+            } else {
+                number = Integer.toString(count);
+                verb = ”are”;
+                pluralModifier = ”s”;
+            }
+            String guessMessage = String.format(
+                ”There %s %s %s%s”, verb, number, candidate, pluralModifier
+            );
+            print(guessMessage);
+        }
+        ```
+    - Variables have a context
+        ```java
+        public class GuessStatisticsMessage {
+            private String number;
+            private String verb;
+            private String pluralModifier;
+        
+            public String make(char candidate, int count) {
+            createPluralDependentMessageParts(count);
+                return String.format(
+                "There %s %s %s%s", 
+                verb, number, candidate, pluralModifier );
+            }
+        
+            private void createPluralDependentMessageParts(int count) {
+            if (count == 0) {
+                thereAreNoLetters();
+            } else if (count == 1) {
+                thereIsOneLetter();
+            } else {
+                thereAreManyLetters(count);
+            }
+            }
+        
+            private void thereAreManyLetters(int count) {
+            number = Integer.toString(count);
+            verb = "are";
+            pluralModifier = "s";
+            }
+        
+            private void thereIsOneLetter() {
+            number = "1";
+            verb = "is";
+            pluralModifier = "";
+            }
+        
+            private void thereAreNoLetters() {
+            number = "no";
+            verb = "are";
+            pluralModifier = "s";
+            }
+        }
+        ```
+16. DON’T ADD GRATUITOUS CONTEXT<a name="gratuitous-context"/>
+    - In an imaginary application called “Gas Station Deluxe,” it is a bad idea to prefix every class with `GSD`. Frankly, you are working against your tools. You type G and press the completion key and are rewarded with a mile-long list of every class in the system. Is that wise? Why make it hard for the IDE to help you?
+    - The names `accountAddress` and `customerAddress` are fine names for **instances of the class** `Address` but could be poor names for **classes**. `Address` is a fine name for **a class**. If I need to differentiate between MAC addresses, port addresses, and Web addresses, I might consider `PostalAddress`, `MAC`, and `URI`. The resulting names are more precise, which is the point of all naming.
 
