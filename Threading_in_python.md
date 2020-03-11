@@ -1,5 +1,7 @@
 # Threading with python
 
+##### link to lecturer's repo: https://github.com/eightlimbed/oreilly
+
 ## Table of Contents
 1. [Single Thread](#single_thread)
 2. [Multi-threads](#multi-threads)
