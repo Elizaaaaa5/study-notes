@@ -134,7 +134,7 @@
         sum += realTaskWeeks;
     }
    ```
-6. AVOID ENCODINGS<a name="avoid-encoding"/>  
+6. AVOID ENCODINGS<a name="avoid-encodings"/>  
     - Hungarian Notation was good in the old days because old compiler did not check types in those days. Not needed as today's comprogramming languages such as java don't need type encoding.
     - Member Prefixes
         - You also don’t need to prefix member variables with m_ anymore.
